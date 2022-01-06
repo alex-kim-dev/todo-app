@@ -1,0 +1,7 @@
+'*.{j,t}s':
+  - eslint --fix
+
+'*.ts':
+  - tsc-files --noEmit
+
+'*.{json,yml,md}': prettier --write
