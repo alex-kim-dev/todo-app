@@ -7,9 +7,17 @@ export default defineConfig(({ mode }) => ({
   root: 'src',
 
   build: {
+    outDir: '../dist',
     emptyOutDir: true,
     sourcemap: true,
   },
 
-  plugins: [react()],
+  plugins: [
+    react({
+      jsxImportSource: '@emotion/react',
+      babel: {
+        plugins: ['@emotion/babel-plugin'],
+      },
+    }),
+  ],
 }));
