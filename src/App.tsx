@@ -1,19 +1,49 @@
-import { css } from '@emotion/react';
+import { ThemeProvider } from '@emotion/react';
 import styled from '@emotion/styled';
+import React from 'react';
 
-const Heading = styled.h1`
-  font-family: sans-serif;
-  text-align: center;
+import GlobalCss from './GlobalCss';
+import getTheme, { ColorThemes } from './theme';
+
+const Background = styled.div(
+  ({ theme: { mq, palette } }) => `
+    background: top center / 100% auto no-repeat
+      url('./images/bg-mobile-${palette.colorTheme}.jpg');
+    padding: 4.8rem 2.4rem;
+    min-height: 100vh;
+
+    ${mq.smUp} {
+      background-image: url('./images/bg-desktop-${palette.colorTheme}.jpg');
+      background-size: auto;
+      padding: 6.4rem 3rem;
+    }
+
+    ${mq.mdUp} {
+      padding: 7.8rem 3rem;
+    }
+
+    ${mq.xlUp} {
+      background-size: 100%;
+    }
+  `,
+);
+
+const Container = styled.div`
+  max-width: 54rem;
+  margin: 0 auto;
 `;
 
-export default function App() {
+const App: React.FC = () => {
   return (
-    <Heading
-      css={css`
-        color: #444;
-      `}
-    >
-      Todo app
-    </Heading>
+    <ThemeProvider theme={getTheme(ColorThemes.dark)}>
+      <GlobalCss />
+      <Background>
+        <Container>
+          <h1>Todo app</h1>
+        </Container>
+      </Background>
+    </ThemeProvider>
   );
-}
+};
+
+export default App;
