@@ -8,12 +8,12 @@ import getTheme, { ColorThemes } from './theme';
 const Background = styled.div(
   ({ theme: { mq, palette } }) => `
     background: top center / 100% auto no-repeat
-      url('./images/bg-mobile-${palette.colorTheme}.jpg');
+      url('/bg-mobile-${palette.colorTheme}.jpg');
     padding: 4.8rem 2.4rem;
     min-height: 100vh;
 
     ${mq.smUp} {
-      background-image: url('./images/bg-desktop-${palette.colorTheme}.jpg');
+      background-image: url('/bg-desktop-${palette.colorTheme}.jpg');
       background-size: auto;
       padding: 6.4rem 3rem;
     }
