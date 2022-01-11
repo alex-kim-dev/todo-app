@@ -36,7 +36,7 @@ const ThemeSwitch = styled.button(
     border-radius: 50%;
     padding: 0;
     margin: -1rem;
-    background: center / 2rem no-repeat url('/icon-${
+    background: center / 2rem no-repeat url('./icon-${
       palette.colorTheme === ColorThemes.dark ? 'sun' : 'moon'
     }.svg');
     cursor: pointer;
