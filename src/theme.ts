@@ -7,6 +7,7 @@ export interface ITheme {
   palette: {
     accent: string;
     bgGradient: { from: string; to: string };
+    white: string;
     bgPrimary: string;
     bgSecondary: string;
     text: string;
@@ -40,6 +41,7 @@ const getTheme = (colorTheme: ColorThemes): ITheme => ({
   palette: {
     accent: 'hsl(220, 98%, 61%)',
     bgGradient: { from: 'hsl(192, 100%, 67%)', to: 'hsl(280, 87%, 65%)' },
+    white: 'hsl(0, 0%, 100%)',
     ...(palettes[colorTheme] ?? {}),
     colorTheme,
   },
