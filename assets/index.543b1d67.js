@@ -19,7 +19,7 @@ var x=Object.defineProperty,w=Object.defineProperties;var v=Object.getOwnPropert
     border-radius: 50%;
     padding: 0;
     margin: -1rem;
-    background: center / 2rem no-repeat url('/icon-${e.colorTheme===i.dark?"sun":"moon"}.svg');
+    background: center / 2rem no-repeat url('./icon-${e.colorTheme===i.dark?"sun":"moon"}.svg');
     cursor: pointer;
     transition: background-color 0.2s;
 
@@ -33,12 +33,12 @@ var x=Object.defineProperty,w=Object.defineProperties;var v=Object.getOwnPropert
     }
   `,""),_=()=>{const[{colorTheme:e},t]=T(),r=e===i.dark,c=()=>{t(L(r?i.light:i.dark))};return b(B,{children:[n(F,{children:"Todo"}),n(I,{role:"switch","aria-checked":r,onClick:c,children:n("span",{css:M,children:"Dark theme"})})]})},J=a("div",{target:"e1db1otb1"})(({theme:{mq:e,palette:t}})=>`
     background: top center / 100% auto no-repeat
-      url('/bg-mobile-${t.colorTheme}.jpg');
+      url('./bg-mobile-${t.colorTheme}.jpg');
     padding: 4.8rem 2.4rem;
     min-height: 100vh;
 
     ${e.smUp} {
-      background-image: url('/bg-desktop-${t.colorTheme}.jpg');
+      background-image: url('./bg-desktop-${t.colorTheme}.jpg');
       background-size: auto;
       padding: 6.4rem 3rem;
     }
@@ -51,4 +51,4 @@ var x=Object.defineProperty,w=Object.defineProperties;var v=Object.getOwnPropert
       background-size: 100%;
     }
   `,""),K=a("div",{target:"e1db1otb0"})({name:"1ddyh2h",styles:"max-width:54rem;margin:0 auto"}),W=()=>{const[{colorTheme:e}]=T();return b(z,{theme:D(e),children:[n(R,{}),n(J,{children:n(K,{children:n(_,{})})})]})};j.render(n(P.StrictMode,{children:n(N,{children:n(W,{})})}),document.getElementById("root"));
-//# sourceMappingURL=index.666abf7f.js.map
+//# sourceMappingURL=index.543b1d67.js.map
