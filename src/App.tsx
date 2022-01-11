@@ -2,7 +2,9 @@ import { ThemeProvider } from '@emotion/react';
 import styled from '@emotion/styled';
 import React from 'react';
 
+import { setColorTheme } from './actions';
 import GlobalCss from './GlobalCss';
+import { useGlobalState } from './GlobalState';
 import getTheme, { ColorThemes } from './theme';
 
 const Background = styled.div(
@@ -34,12 +36,28 @@ const Container = styled.div`
 `;
 
 const App: React.FC = () => {
+  const [{ colorTheme }, dispatch] = useGlobalState();
+
   return (
-    <ThemeProvider theme={getTheme(ColorThemes.dark)}>
+    <ThemeProvider theme={getTheme(colorTheme)}>
       <GlobalCss />
       <Background>
         <Container>
           <h1>Todo app</h1>
+          <button
+            type='button'
+            onClick={() =>
+              dispatch(
+                setColorTheme(
+                  colorTheme === ColorThemes.light
+                    ? ColorThemes.dark
+                    : ColorThemes.light,
+                ),
+              )
+            }
+          >
+            Switch theme
+          </button>
         </Container>
       </Background>
     </ThemeProvider>

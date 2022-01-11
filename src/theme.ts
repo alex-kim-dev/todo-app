@@ -3,7 +3,7 @@ export enum ColorThemes {
   dark = 'dark',
 }
 
-export interface Theme {
+export interface ITheme {
   palette: {
     accent: string;
     bgGradient: { from: string; to: string };
@@ -36,7 +36,7 @@ const palettes = {
   },
 };
 
-const getTheme = (colorTheme: ColorThemes): Theme => ({
+const getTheme = (colorTheme: ColorThemes): ITheme => ({
   palette: {
     accent: 'hsl(220, 98%, 61%)',
     bgGradient: { from: 'hsl(192, 100%, 67%)', to: 'hsl(280, 87%, 65%)' },

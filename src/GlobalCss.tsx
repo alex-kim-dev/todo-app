@@ -1,8 +1,8 @@
 import { css, Global } from '@emotion/react';
 
-import { Theme } from './theme';
+import { ITheme } from './theme';
 
-const globalCss = ({ palette }: Theme) =>
+const globalCss = ({ palette }: ITheme) =>
   css`
     html {
       font-size: 62.5%;
