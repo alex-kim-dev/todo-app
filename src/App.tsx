@@ -36,6 +36,19 @@ const Container = styled.div`
   margin: 0 auto;
 `;
 
+const Hint = styled.p(
+  ({ theme: { palette, mq } }) => `
+    margin-top: 4.3rem;
+    font-size: 1.4rem;
+    text-align: center;
+    color: ${palette.textSecondary};
+
+    ${mq.mdUp} {
+      margin-top: 5.2rem;
+    }
+  `,
+);
+
 const App: React.FC = () => {
   const [{ colorTheme }] = useGlobalState();
 
@@ -46,6 +59,7 @@ const App: React.FC = () => {
         <Container>
           <Header />
           <Content />
+          <Hint>Drag and drop to reorder list</Hint>
         </Container>
       </Background>
     </ThemeProvider>

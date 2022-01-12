@@ -43,16 +43,25 @@ const reducer = produce((state: IGlobalState, action: Action): void => {
       state.colorTheme = action.payload;
       break;
     }
+
     case ActionTypes.toggleTodoCompletion: {
       const todo = state.todos.find(({ id }) => id === action.payload);
       if (todo) todo.completed = !todo.completed;
       break;
     }
+
     case ActionTypes.deleteTodo: {
       const index = state.todos.findIndex(({ id }) => id === action.payload);
       if (index !== -1) state.todos.splice(index, 1);
       break;
     }
+
+    case ActionTypes.clearCompleted: {
+      const todos = state.todos.filter(({ completed }) => !completed);
+      state.todos = todos;
+      break;
+    }
+
     default:
       break;
   }

@@ -16,12 +16,9 @@ const Item = styled.li(
   ({ theme: { mq, palette } }) => `
     display: flex;
     align-items: center;
-    padding: 1.4rem 2rem;
+    padding: 1.6rem 2rem;
     box-sizing: content-box;
-
-    &:not(:first-of-type) {
-      border-top: 0.1rem solid ${palette.muted};
-    }
+    border-bottom: 0.1rem solid ${palette.muted};
 
     & > :not(:last-child) {
       margin-right: 1.2rem;
