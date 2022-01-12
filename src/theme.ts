@@ -13,6 +13,7 @@ export interface ITheme {
     bgSecondary: string;
     bgHover: string;
     text: string;
+    textSecondary: string;
     colorTheme: ColorThemes;
   };
   mq: {
@@ -32,6 +33,7 @@ const palettes = {
     bgSecondary: 'hsl(0, 0%, 100%)',
     bgHover: 'hsl(233, 11%, 84%)',
     text: 'hsl(235, 19%, 35%)',
+    textSecondary: 'hsl(236, 9%, 61%)',
     muted: 'hsl(234, 39%, 85%)',
   },
   [ColorThemes.dark]: {
@@ -39,6 +41,7 @@ const palettes = {
     bgSecondary: 'hsl(235, 24%, 19%)',
     bgHover: 'hsl(235, 21%, 11%)',
     text: 'hsl(234, 39%, 85%)',
+    textSecondary: 'hsl(234, 11%, 52%)',
     muted: 'hsl(233, 14%, 35%)',
   },
 };

@@ -58,7 +58,7 @@ const Task = styled.p<{ completed?: boolean }>(
       completed &&
       `
         text-decoration: line-through;
-        color: ${palette.muted};
+        color: ${palette.textSecondary};
       `
     }
 
