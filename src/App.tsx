@@ -4,6 +4,7 @@ import React from 'react';
 
 import Content from './components/Content';
 import Header from './components/Header';
+import NewTodoForm from './components/NewTodoForm';
 import GlobalCss from './GlobalCss';
 import { useGlobalState } from './GlobalState';
 import getTheme from './theme';
@@ -58,6 +59,7 @@ const App: React.FC = () => {
       <Background>
         <Container>
           <Header />
+          <NewTodoForm />
           <Content />
           <Hint>Drag and drop to reorder list</Hint>
         </Container>

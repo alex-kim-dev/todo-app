@@ -44,6 +44,16 @@ const reducer = produce((state: IGlobalState, action: Action): void => {
       break;
     }
 
+    case ActionTypes.addTodo: {
+      const todo: ITodo = {
+        id: nanoid(),
+        task: action.payload,
+        completed: false,
+      };
+      state.todos.push(todo);
+      break;
+    }
+
     case ActionTypes.toggleTodoCompletion: {
       const todo = state.todos.find(({ id }) => id === action.payload);
       if (todo) todo.completed = !todo.completed;

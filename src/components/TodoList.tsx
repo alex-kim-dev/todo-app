@@ -25,7 +25,7 @@ const Item = styled.li(
     }
 
     ${mq.smUp} {
-      padding: 1.6rem 2.2rem;
+      padding: 1.8rem 2.2rem;
 
       & > :not(:last-child) {
         margin-right: 1.8rem;
@@ -52,11 +52,12 @@ const Task = styled.p<{ completed?: boolean }>(
     font-size: 1.2rem;
 
     ${
-      completed &&
-      `
-        text-decoration: line-through;
-        color: ${palette.textSecondary};
-      `
+      completed
+        ? `
+          text-decoration: line-through;
+          color: ${palette.textSecondary};
+        `
+        : ''
     }
 
     ${mq.smUp} {

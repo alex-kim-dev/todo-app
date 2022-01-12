@@ -5,6 +5,16 @@ import { useGlobalState } from '../GlobalState';
 import Surface from './Surface';
 import TodoList from './TodoList';
 
+const Container = styled(Surface)(
+  ({ theme: { mq } }) => `
+    margin-top: 1.6rem;
+
+    ${mq.mdUp} {
+      margin-top: 2.4rem;
+    }
+  `,
+);
+
 const Status = styled.div(
   ({ theme: { palette, mq } }) => `
     display: flex;
@@ -47,7 +57,7 @@ const Content: React.FC = () => {
   };
 
   return (
-    <Surface as='main' css={{ marginTop: '1.6rem' }}>
+    <Container as='main'>
       <TodoList />
       <Status>
         <span>{countText}</span>
@@ -55,7 +65,7 @@ const Content: React.FC = () => {
           Clear Completed
         </ClearBtn>
       </Status>
-    </Surface>
+    </Container>
   );
 };
 
