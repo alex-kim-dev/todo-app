@@ -7,9 +7,11 @@ export interface ITheme {
   palette: {
     accent: string;
     bgGradient: { from: string; to: string };
+    muted: string;
     white: string;
     bgPrimary: string;
     bgSecondary: string;
+    bgHover: string;
     text: string;
     colorTheme: ColorThemes;
   };
@@ -27,13 +29,17 @@ const minWidthMq = (breakpoint: number): string =>
 const palettes = {
   [ColorThemes.light]: {
     bgPrimary: 'hsl(0, 0%, 98%)',
-    bgSecondary: 'hsl(236, 33%, 92%)',
+    bgSecondary: 'hsl(0, 0%, 100%)',
+    bgHover: 'hsl(233, 11%, 84%)',
     text: 'hsl(235, 19%, 35%)',
+    muted: 'hsl(234, 39%, 85%)',
   },
   [ColorThemes.dark]: {
     bgPrimary: 'hsl(235, 21%, 11%)',
-    bgSecondary: 'hsl(0, 0%, 100%)',
+    bgSecondary: 'hsl(235, 24%, 19%)',
+    bgHover: 'hsl(235, 21%, 11%)',
     text: 'hsl(234, 39%, 85%)',
+    muted: 'hsl(233, 14%, 35%)',
   },
 };
 

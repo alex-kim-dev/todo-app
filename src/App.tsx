@@ -2,6 +2,7 @@ import { ThemeProvider } from '@emotion/react';
 import styled from '@emotion/styled';
 import React from 'react';
 
+import Content from './components/Content';
 import Header from './components/Header';
 import GlobalCss from './GlobalCss';
 import { useGlobalState } from './GlobalState';
@@ -44,6 +45,7 @@ const App: React.FC = () => {
       <Background>
         <Container>
           <Header />
+          <Content />
         </Container>
       </Background>
     </ThemeProvider>

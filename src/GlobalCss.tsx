@@ -14,6 +14,8 @@ const globalCss = ({ palette }: ITheme) =>
       font-size: 1.6rem;
       font-family: 'Josefin Sans', sans-serif;
       line-height: normal;
+      letter-spacing: -0.015em;
+      word-break: break-word;
     }
   `;
 
