@@ -4,8 +4,7 @@ import { createContext, useContext, useReducer } from 'react';
 
 import { Action, ActionTypes } from './actions';
 import { ColorThemes } from './theme';
-
-type Id = string;
+import { Id } from './types';
 
 interface ITodo {
   id: Id;
@@ -42,6 +41,16 @@ const reducer = produce((state: IGlobalState, action: Action): void => {
   switch (action.type) {
     case ActionTypes.setColorTheme: {
       state.colorTheme = action.payload;
+      break;
+    }
+    case ActionTypes.toggleTodoCompletion: {
+      const todo = state.todos.find(({ id }) => id === action.payload);
+      if (todo) todo.completed = !todo.completed;
+      break;
+    }
+    case ActionTypes.deleteTodo: {
+      const index = state.todos.findIndex(({ id }) => id === action.payload);
+      if (index !== -1) state.todos.splice(index, 1);
       break;
     }
     default:

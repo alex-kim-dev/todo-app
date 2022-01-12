@@ -1,7 +1,9 @@
 import styled from '@emotion/styled';
 
+import { deleteTodo, toggleTodoCompletion } from '../actions';
 import { srOnly } from '../GlobalCss';
 import { useGlobalState } from '../GlobalState';
+import { Id } from '../types';
 import Checkmark from './Checkmark';
 
 const List = styled.ul`
@@ -100,15 +102,23 @@ const DeleteBtn = styled.button(
 );
 
 const TodoList: React.FC = () => {
-  const [{ todos }] = useGlobalState();
+  const [{ todos }, dispatch] = useGlobalState();
+
+  const handleCheckmarkChange = (id: Id) => (): void => {
+    dispatch(toggleTodoCompletion(id));
+  };
+
+  const handleDeleteClick = (id: Id) => (): void => {
+    dispatch(deleteTodo(id));
+  };
 
   return (
     <List id='todo-list'>
       {todos.map(({ id, task, completed }) => (
         <Item key={id}>
-          <Checkmark checked={completed} onChange={() => {}} />
+          <Checkmark checked={completed} onChange={handleCheckmarkChange(id)} />
           <Task completed={completed}>{task}</Task>
-          <DeleteBtn type='button'>
+          <DeleteBtn type='button' onClick={handleDeleteClick(id)}>
             <span css={srOnly}>Delete task</span>
           </DeleteBtn>
         </Item>
