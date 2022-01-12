@@ -1,10 +1,10 @@
-'*.{j,t}s':
+'*.{j,t}s{,x}':
   - eslint --fix
 
-'*.ts':
+'*.ts{,x}':
   - tsc-files --noEmit
 
-'!(*test).{j,t}s':
+'!(*test).{j,t}s{,x}':
   - jest --findRelatedTests
 
 '*.{json,yml,md}': prettier --write
