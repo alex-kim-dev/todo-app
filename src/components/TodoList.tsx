@@ -32,7 +32,7 @@ const Item = styled.li(
       }
 
       &:hover > button {
-        opacity: 1;
+        background-image: url('./icon-cross.svg');
       }
     }
 
@@ -88,9 +88,13 @@ const DeleteBtn = styled.button(
       background-color: ${palette.bgHover};
     }
 
+    &:focus {
+      background-image: url('./icon-cross.svg');
+    }
+
     ${mq.smUp} {
       --size: 1.5rem;
-      opacity: 0;
+      background-image: none;
     }
 
     ${mq.mdUp} {
