@@ -75,7 +75,10 @@ const NewTodoForm: React.FC = () => {
   ): void => {
     event.preventDefault();
     const form = event.currentTarget;
-    const task = (new FormData(form).get('new-todo') as string).trim() ?? '';
+    const task = (new FormData(form).get('new-todo') as string).trim();
+
+    if (!task) return;
+
     dispatch(addTodo(task));
     form.reset();
   };
