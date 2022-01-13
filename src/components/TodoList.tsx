@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { deleteTodo, toggleTodoCompletion } from '../actions';
 import { srOnly } from '../GlobalCss';
 import { useGlobalState } from '../GlobalState';
-import { Id } from '../types';
+import { Filters, Id } from '../types';
 import Checkmark from './Checkmark';
 
 const List = styled.ul`
@@ -103,8 +103,14 @@ const DeleteBtn = styled.button(
   `,
 );
 
+const matchTodo = {
+  [Filters.all]: () => true,
+  [Filters.active]: (completed: boolean) => !completed,
+  [Filters.completed]: (completed: boolean) => completed,
+};
+
 const TodoList: React.FC = () => {
-  const [{ todos }, dispatch] = useGlobalState();
+  const [{ todos, todosFilter }, dispatch] = useGlobalState();
 
   const handleCheckmarkChange = (id: Id) => (): void => {
     dispatch(toggleTodoCompletion(id));
@@ -114,13 +120,21 @@ const TodoList: React.FC = () => {
     dispatch(deleteTodo(id));
   };
 
+  const filteredTodos = todos.filter(({ completed }) =>
+    matchTodo[todosFilter](completed),
+  );
+
   return (
     <List id='todo-list'>
-      {todos.map(({ id, task, completed }) => (
+      {filteredTodos.map(({ id, task, completed }) => (
         <Item key={id}>
           <Checkmark checked={completed} onChange={handleCheckmarkChange(id)} />
           <Task completed={completed}>{task}</Task>
-          <DeleteBtn type='button' onClick={handleDeleteClick(id)}>
+          <DeleteBtn
+            type='button'
+            onClick={handleDeleteClick(id)}
+            aria-controls='todo-list'
+          >
             <span css={srOnly}>Delete task</span>
           </DeleteBtn>
         </Item>

@@ -1,5 +1,5 @@
 import { ColorThemes } from './theme';
-import { Id } from './types';
+import { Filters, Id } from './types';
 
 export enum ActionTypes {
   setColorTheme = 'SET_COLOR_THEME',
@@ -7,6 +7,7 @@ export enum ActionTypes {
   toggleTodoCompletion = 'TOGGLE_TASK_COMPLETION',
   deleteTodo = 'DELETE_TODO',
   clearCompleted = 'CLEAR_COMPLETED',
+  setFilter = 'SET_FILTER',
 }
 
 interface ISetColorTheme {
@@ -33,12 +34,18 @@ interface IClearCompleted {
   type: ActionTypes.clearCompleted;
 }
 
+interface ISetFilter {
+  type: ActionTypes.setFilter;
+  payload: Filters;
+}
+
 export type Action =
   | ISetColorTheme
   | IAddTodo
   | IToggleTodoCompletion
   | IDeleteTodo
-  | IClearCompleted;
+  | IClearCompleted
+  | ISetFilter;
 
 export const setColorTheme = (colorTheme: ColorThemes): ISetColorTheme => ({
   type: ActionTypes.setColorTheme,
@@ -62,4 +69,9 @@ export const deleteTodo = (id: Id): IDeleteTodo => ({
 
 export const clearCompleted = (): IClearCompleted => ({
   type: ActionTypes.clearCompleted,
+});
+
+export const setFilter = (value: Filters): ISetFilter => ({
+  type: ActionTypes.setFilter,
+  payload: value,
 });

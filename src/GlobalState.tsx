@@ -4,7 +4,7 @@ import { createContext, useContext, useReducer } from 'react';
 
 import { Action, ActionTypes } from './actions';
 import { ColorThemes } from './theme';
-import { Id } from './types';
+import { Filters, Id } from './types';
 
 interface ITodo {
   id: Id;
@@ -15,6 +15,7 @@ interface ITodo {
 interface IGlobalState {
   colorTheme: ColorThemes;
   todos: ITodo[];
+  todosFilter: Filters;
 }
 
 const initialState: IGlobalState = {
@@ -35,6 +36,7 @@ const initialState: IGlobalState = {
       completed: false,
     },
   ],
+  todosFilter: Filters.all,
 };
 
 const reducer = produce((state: IGlobalState, action: Action): void => {
@@ -69,6 +71,11 @@ const reducer = produce((state: IGlobalState, action: Action): void => {
     case ActionTypes.clearCompleted: {
       const todos = state.todos.filter(({ completed }) => !completed);
       state.todos = todos;
+      break;
+    }
+
+    case ActionTypes.setFilter: {
+      state.todosFilter = action.payload;
       break;
     }
 
