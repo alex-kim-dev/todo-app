@@ -28,6 +28,9 @@ rules:
     - error
     - namedComponents: arrow-function
       unnamedComponents: arrow-function
+  no-empty:
+    - error
+    - allowEmptyCatch: true
 
 overrides:
   - files: ['*.ts', '*.tsx']

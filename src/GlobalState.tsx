@@ -1,6 +1,12 @@
 import produce from 'immer';
 import { nanoid } from 'nanoid';
-import { createContext, useContext, useReducer } from 'react';
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useReducer,
+} from 'react';
 
 import { Action, ActionTypes } from './actions';
 import { ColorThemes } from './theme';
@@ -19,7 +25,9 @@ interface IGlobalState {
 }
 
 const initialState: IGlobalState = {
-  colorTheme: ColorThemes.dark,
+  colorTheme: window.matchMedia('(prefers-color-scheme: dark)').matches
+    ? ColorThemes.dark
+    : ColorThemes.light,
   todos: [
     {
       id: nanoid(),
@@ -94,10 +102,33 @@ export const useGlobalState = (): [IGlobalState, React.Dispatch<Action>] => {
 };
 
 const GlobalState: React.FC = ({ children }) => {
-  const state = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, initialState, (initState) => {
+    try {
+      const lsState = window.localStorage.getItem('global-state');
+      return lsState ? JSON.parse(lsState) : initState;
+    } catch (error) {
+      console.error(
+        "Local storage is not accessible, the app state won't be saved!",
+      );
+      return initState;
+    }
+  });
+
+  useEffect(() => {
+    try {
+      window.localStorage.setItem('global-state', JSON.stringify(state));
+    } catch (error) {}
+  }, [state]);
+
+  const valueToPass = useMemo<[IGlobalState, React.Dispatch<Action>]>(
+    () => [state, dispatch],
+    [state],
+  );
 
   return (
-    <stateContext.Provider value={state}>{children}</stateContext.Provider>
+    <stateContext.Provider value={valueToPass}>
+      {children}
+    </stateContext.Provider>
   );
 };
 
