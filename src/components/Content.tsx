@@ -34,6 +34,7 @@ const Status = styled.div(
     }
 
     & > button {
+      justify-self: end;
       grid-area: 1 / -2 / -1 / -1;
     }
 

@@ -20,10 +20,11 @@ const Label = styled.label`
   align-items: center;
 `;
 
-const Icon = styled.div(
+const Icon = styled.span(
   ({ theme: { palette, mq } }) => `
     --size: 2rem;
     grid-area: 1 / 1 / 2 / -1;
+    display: block;
     margin-left: 2rem;
     width: var(--size);
     height: var(--size);

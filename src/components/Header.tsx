@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { setColorTheme } from '../actions';
 import { srOnly } from '../GlobalCss';
 import { useGlobalState } from '../GlobalState';
-import { ColorThemes } from '../theme';
+import { ColorThemes } from '../types';
 
 const Container = styled.header`
   display: flex;
@@ -67,6 +67,7 @@ const Header: React.FC = () => {
     <Container>
       <Heading>Todo</Heading>
       <ThemeSwitch
+        type='button'
         role='switch'
         aria-checked={isDarkThemeOn}
         onClick={handleThemeSwitchClick}

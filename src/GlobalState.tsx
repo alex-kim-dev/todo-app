@@ -9,14 +9,7 @@ import {
 } from 'react';
 
 import { Action, ActionTypes } from './actions';
-import { ColorThemes } from './theme';
-import { Filters, Id } from './types';
-
-interface ITodo {
-  id: Id;
-  task: string;
-  completed: boolean;
-}
+import { ColorThemes, Filters, ITodo } from './types';
 
 interface IGlobalState {
   colorTheme: ColorThemes;

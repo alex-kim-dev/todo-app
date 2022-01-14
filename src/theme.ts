@@ -1,7 +1,4 @@
-export enum ColorThemes {
-  light = 'light',
-  dark = 'dark',
-}
+import { ColorThemes } from './types';
 
 export interface ITheme {
   palette: {

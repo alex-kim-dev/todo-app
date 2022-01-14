@@ -1,5 +1,4 @@
-import { ColorThemes } from './theme';
-import { Filters, Id } from './types';
+import { ColorThemes, Filters, Id } from './types';
 
 export enum ActionTypes {
   setColorTheme = 'SET_COLOR_THEME',
