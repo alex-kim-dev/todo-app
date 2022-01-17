@@ -17,7 +17,7 @@ interface IGlobalState {
   todosFilter: Filters;
 }
 
-const initialState: IGlobalState = {
+export const initialState: IGlobalState = {
   colorTheme: window.matchMedia('(prefers-color-scheme: dark)').matches
     ? ColorThemes.dark
     : ColorThemes.light,
@@ -40,7 +40,7 @@ const initialState: IGlobalState = {
   todosFilter: Filters.all,
 };
 
-const reducer = produce((state: IGlobalState, action: Action): void => {
+export const reducer = produce((state: IGlobalState, action: Action): void => {
   switch (action.type) {
     case ActionTypes.setColorTheme: {
       state.colorTheme = action.payload;
@@ -85,10 +85,9 @@ const reducer = produce((state: IGlobalState, action: Action): void => {
   }
 });
 
-const stateContext = createContext<[IGlobalState, React.Dispatch<Action>]>([
-  initialState,
-  () => {},
-]);
+export const stateContext = createContext<
+  [IGlobalState, React.Dispatch<Action>]
+>([initialState, () => {}]);
 
 export const useGlobalState = (): [IGlobalState, React.Dispatch<Action>] => {
   return useContext(stateContext);

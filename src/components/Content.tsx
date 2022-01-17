@@ -87,7 +87,7 @@ const Content: React.FC = () => {
       <Surface>
         <TodoList />
         <Status>
-          <span>{countText}</span>
+          <span role='status'>{countText}</span>
           <ClearBtn type='button' onClick={handleClearBtnClick}>
             Clear Completed
           </ClearBtn>

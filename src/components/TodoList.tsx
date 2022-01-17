@@ -125,7 +125,7 @@ const TodoList: React.FC = () => {
   );
 
   return (
-    <List id='todo-list'>
+    <List id='todo-list' aria-label='Todo list'>
       {filteredTodos.map(({ id, task, completed }) => (
         <Item key={id}>
           <Checkmark checked={completed} onChange={handleCheckmarkChange(id)} />

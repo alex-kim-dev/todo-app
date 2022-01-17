@@ -85,7 +85,7 @@ const NewTodoForm: React.FC = () => {
   };
 
   return (
-    <Form onSubmit={handleNewTodoSubmit}>
+    <Form aria-label='New todo form' onSubmit={handleNewTodoSubmit}>
       <Label>
         <span css={srOnly}>New task</span>
         <Icon />
