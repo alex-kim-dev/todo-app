@@ -3,6 +3,8 @@ name: CD
 on:
   push:
     branches: [main]
+  pull_request:
+    branches: [main]
   workflow_dispatch:
 
 jobs:
@@ -73,6 +75,7 @@ jobs:
 
   deploy:
     name: Deploy
+    if: github.event_name == 'push'
     needs: [lint, test, build]
     runs-on: ubuntu-latest
     steps:
