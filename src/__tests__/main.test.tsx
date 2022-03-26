@@ -1,6 +1,12 @@
 import '@testing-library/jest-dom/extend-expect';
 
-import { render, screen, within } from '@testing-library/react';
+import {
+  logDOM,
+  logRoles,
+  render,
+  screen,
+  within,
+} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 
@@ -55,12 +61,10 @@ describe('Todo app', () => {
         expect(
           within(item).getByRole('checkbox', { checked: completed }),
         ).toBeInTheDocument();
-        expect(
-          within(item).getByRole('button', { name: /delete task/i }),
-        ).toBeInTheDocument();
+        expect(within(item).getByText(/delete task/i)).toBeInTheDocument();
       });
 
-    expect(screen.getByRole('status')).toHaveTextContent(
+    expect(screen.getByTestId('todo-counter')).toHaveTextContent(
       new RegExp(`${initialState.todos.length} items? left`, 'i'),
     );
 
@@ -126,7 +130,7 @@ describe('Todo app', () => {
 
     expect(input).toHaveValue('');
     expect(items.length).toBe(todosCount + 1);
-    expect(screen.getByRole('status')).toHaveTextContent(
+    expect(screen.getByTestId('todo-counter')).toHaveTextContent(
       new RegExp(`^${todosCount + 1}`),
     );
     expect(lastItem).toHaveTextContent('test');
@@ -141,15 +145,13 @@ describe('Todo app', () => {
         'listitem',
       ).length,
     ).toBe(todosCount + 1);
-    expect(screen.getByRole('status')).toHaveTextContent(
+    expect(screen.getByTestId('todo-counter')).toHaveTextContent(
       new RegExp(`^${todosCount + 1}`),
     );
   });
 
   it('deletes todos', async () => {
-    await userEvent.click(
-      screen.getAllByRole('button', { name: /delete task/i })[1],
-    );
+    await userEvent.click(screen.getAllByText(/delete task/i)[1]);
 
     const todosCount = initialState.todos.length;
     const list = screen.getByRole('list', { name: /todo list/i });
@@ -159,7 +161,7 @@ describe('Todo app', () => {
       within(list).queryByText(initialState.todos[1].task),
     ).not.toBeInTheDocument();
     expect(items.length).toBe(todosCount - 1);
-    expect(screen.getByRole('status')).toHaveTextContent(
+    expect(screen.getByTestId('todo-counter')).toHaveTextContent(
       new RegExp(`^${todosCount - 1}`),
     );
   });
