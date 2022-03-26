@@ -5,8 +5,14 @@ import TodoItem, { TodoItemProps } from './TodoItem';
 
 const SortableTodoItem: React.FC<TodoItemProps> = (props) => {
   const { todo } = props;
-  const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({ id: todo.id });
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id: todo.id });
 
   return (
     <TodoItem
@@ -15,6 +21,7 @@ const SortableTodoItem: React.FC<TodoItemProps> = (props) => {
         transform: CSS.Transform.toString(transform),
         transition,
       }}
+      isDragging={isDragging}
       {...listeners}
       {...attributes}
       {...props}
