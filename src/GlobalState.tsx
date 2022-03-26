@@ -80,6 +80,15 @@ export const reducer = produce((state: IGlobalState, action: Action): void => {
       break;
     }
 
+    case ActionTypes.reorderTodos: {
+      const { todos } = state;
+      const moveIdx = todos.findIndex(({ id }) => id === action.payload.move);
+      const afterIdx = todos.findIndex(({ id }) => id === action.payload.after);
+      const [todoToMove] = todos.splice(moveIdx, 1);
+      todos.splice(afterIdx, 0, todoToMove);
+      break;
+    }
+
     default:
       break;
   }

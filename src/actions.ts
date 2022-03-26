@@ -7,6 +7,7 @@ export enum ActionTypes {
   deleteTodo = 'DELETE_TODO',
   clearCompleted = 'CLEAR_COMPLETED',
   setFilter = 'SET_FILTER',
+  reorderTodos = 'REORDER_TODOS',
 }
 
 interface ISetColorTheme {
@@ -38,13 +39,19 @@ interface ISetFilter {
   payload: Filters;
 }
 
+interface IReorderTodos {
+  type: ActionTypes.reorderTodos;
+  payload: { move: Id; after: Id };
+}
+
 export type Action =
   | ISetColorTheme
   | IAddTodo
   | IToggleTodoCompletion
   | IDeleteTodo
   | IClearCompleted
-  | ISetFilter;
+  | ISetFilter
+  | IReorderTodos;
 
 export const setColorTheme = (colorTheme: ColorThemes): ISetColorTheme => ({
   type: ActionTypes.setColorTheme,
@@ -72,5 +79,13 @@ export const clearCompleted = (): IClearCompleted => ({
 
 export const setFilter = (value: Filters): ISetFilter => ({
   type: ActionTypes.setFilter,
+  payload: value,
+});
+
+export const reorderTodos = (value: {
+  move: Id;
+  after: Id;
+}): IReorderTodos => ({
+  type: ActionTypes.reorderTodos,
   payload: value,
 });

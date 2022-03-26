@@ -18,7 +18,7 @@ import {
 import styled from '@emotion/styled';
 import { useState } from 'react';
 
-import { deleteTodo, toggleTodoCompletion } from '../actions';
+import { deleteTodo, reorderTodos, toggleTodoCompletion } from '../actions';
 import { useGlobalState } from '../GlobalState';
 import { Filters, Id, ITodo } from '../types';
 import SortableTodoItem from './SortableTodoItem';
@@ -76,7 +76,8 @@ const TodoList: React.FC = () => {
     setDraggedTodoId(active.id);
   };
 
-  const handleDragEnd = (event: DragEndEvent): void => {
+  const handleDragEnd = ({ active, over }: DragEndEvent): void => {
+    if (over?.id) dispatch(reorderTodos({ move: active.id, after: over.id }));
     setDraggedTodoId(null);
   };
 
