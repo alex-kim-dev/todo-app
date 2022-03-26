@@ -24,7 +24,7 @@ import { Filters, Id, ITodo } from '../types';
 import SortableTodoItem from './SortableTodoItem';
 import TodoItem from './TodoItem';
 
-const activationConstraint = { delay: 300, tolerance: 5 };
+const activationConstraint = { delay: 400, tolerance: 5 };
 
 const emptyTodo: ITodo = {
   id: '0',
@@ -36,6 +36,7 @@ const List = styled.ul`
   list-style: none;
   margin: 0;
   padding: 0;
+  overflow: hidden;
 `;
 
 const matchTodo = {
@@ -101,7 +102,7 @@ const TodoList: React.FC = () => {
           ))}
         </SortableContext>
         <DragOverlay>
-          {draggedTodoId && <TodoItem todo={draggedTodo} />}
+          {draggedTodoId && <TodoItem todo={draggedTodo} isOverlay />}
         </DragOverlay>
       </DndContext>
     </List>

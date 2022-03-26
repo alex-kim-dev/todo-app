@@ -1,9 +1,22 @@
 import styled from '@emotion/styled';
-import React, { forwardRef } from 'react';
+import { forwardRef, memo, useEffect } from 'react';
 
 import { srOnly } from '../GlobalCss';
 import type { ITodo } from '../types';
 import Checkmark from './Checkmark';
+
+interface ListItemProps {
+  isDragging: boolean;
+  isOverlay: boolean;
+}
+
+const ListItem = styled.li<ListItemProps>(
+  ({ theme: { palette }, isDragging, isOverlay }) => `
+    background-color: ${palette.bgSecondary};
+    ${isDragging ? 'opacity: 0;' : ''}
+    ${isOverlay ? `outline: 0.2rem solid ${palette.accent};` : ''}
+  `,
+);
 
 const DragWrapper = styled.div(
   ({ theme: { mq, palette } }) => `
@@ -11,6 +24,8 @@ const DragWrapper = styled.div(
     align-items: center;
     padding: 1.6rem 2rem;
     box-sizing: content-box;
+    margin-top: -0.1rem;
+    border-top: 0.1rem solid ${palette.muted};
     border-bottom: 0.1rem solid ${palette.muted};
 
     & > :not(:last-child) {
@@ -101,14 +116,37 @@ export interface TodoItemProps {
   onComplete?: () => void;
   onDelete?: () => void;
   className?: string;
+  isDragging?: boolean;
+  isOverlay?: boolean;
 }
 
 const TodoItem = forwardRef<HTMLDivElement, TodoItemProps>(
-  ({ todo, onComplete = () => {}, onDelete, className, ...props }, ref) => {
+  (
+    {
+      todo,
+      onComplete = () => {},
+      onDelete,
+      className,
+      isDragging = false,
+      isOverlay = false,
+      ...props
+    },
+    ref,
+  ) => {
     const { task, completed } = todo;
 
+    useEffect(() => {
+      if (!isOverlay) return undefined;
+
+      document.body.style.cursor = 'grabbing';
+
+      return () => {
+        document.body.style.cursor = '';
+      };
+    }, [isOverlay]);
+
     return (
-      <li>
+      <ListItem isDragging={isDragging} isOverlay={isOverlay}>
         <DragWrapper ref={ref} className={className} {...props}>
           <Checkmark checked={completed} onChange={onComplete} />
           <Task completed={completed}>{task}</Task>
@@ -116,9 +154,9 @@ const TodoItem = forwardRef<HTMLDivElement, TodoItemProps>(
             <span css={srOnly}>Delete task</span>
           </DeleteBtn>
         </DragWrapper>
-      </li>
+      </ListItem>
     );
   },
 );
 
-export default TodoItem;
+export default memo(TodoItem);
