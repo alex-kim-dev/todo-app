@@ -1,14 +1,16 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 
 import App from './App';
 import GlobalState from './GlobalState';
 
-ReactDOM.render(
+const container = document.getElementById('root') as HTMLDivElement;
+const root = createRoot(container);
+
+root.render(
   <React.StrictMode>
     <GlobalState>
       <App />
     </GlobalState>
   </React.StrictMode>,
-  document.getElementById('root'),
 );
