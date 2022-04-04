@@ -61,7 +61,7 @@ const App: React.FC = () => {
           <Header />
           <NewTodoForm />
           <Content />
-          <Hint>Long press on a task to active drag and drop</Hint>
+          <Hint>Long press on a task to activate drag and drop</Hint>
         </Container>
       </Background>
     </ThemeProvider>
