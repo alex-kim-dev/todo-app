@@ -1,12 +1,6 @@
 import '@testing-library/jest-dom/extend-expect';
 
-import {
-  logDOM,
-  logRoles,
-  render,
-  screen,
-  within,
-} from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 
@@ -15,28 +9,27 @@ import { initialState, reducer, stateContext } from '../GlobalState';
 import getTheme from '../theme';
 import { ColorThemes, Filters } from '../types';
 
-const GlobalState: React.FC = ({ children }) => {
+const TestApp: React.FC = () => {
   const valueToPass = React.useReducer(reducer, initialState);
 
   return (
-    <stateContext.Provider value={valueToPass}>
-      {children}
-    </stateContext.Provider>
+    <React.StrictMode>
+      <stateContext.Provider value={valueToPass}>
+        <App />
+      </stateContext.Provider>
+    </React.StrictMode>
   );
 };
 
-describe('Todo app', () => {
-  beforeEach(() =>
-    render(
-      <React.StrictMode>
-        <GlobalState>
-          <App />
-        </GlobalState>
-      </React.StrictMode>,
-    ),
-  );
+const setup = (component: React.ReactElement) => ({
+  user: userEvent.setup(),
+  ...render(component),
+});
 
+describe('Todo app', () => {
   it('renders correctly', () => {
+    render(<TestApp />);
+
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(
       /todo/i,
     );
@@ -84,6 +77,7 @@ describe('Todo app', () => {
   });
 
   it('switches a color theme', async () => {
+    const { user } = setup(<TestApp />);
     const checked = initialState.colorTheme === ColorThemes.dark;
 
     expect(
@@ -98,11 +92,7 @@ describe('Todo app', () => {
       }`,
     );
 
-    await userEvent.click(
-      screen.getByRole('switch', {
-        name: /dark theme/i,
-      }),
-    );
+    await user.click(screen.getByRole('switch', { name: /dark theme/i }));
 
     expect(
       screen.getByRole('switch', {
@@ -119,10 +109,11 @@ describe('Todo app', () => {
   });
 
   it('adds a new todo', async () => {
+    const { user } = setup(<TestApp />);
     const todosCount = initialState.todos.length;
     const input = screen.getByRole('textbox', { name: /new task/i });
 
-    await userEvent.type(input, 'test{enter}');
+    await user.type(input, 'test{enter}');
     const items = within(
       screen.getByRole('list', { name: /todo list/i }),
     ).getAllByRole('listitem');
@@ -138,7 +129,7 @@ describe('Todo app', () => {
       within(lastItem).getByRole('checkbox', { checked: false }),
     ).toBeInTheDocument();
 
-    await userEvent.type(input, '{enter}');
+    await user.type(input, '{enter}');
 
     expect(
       within(screen.getByRole('list', { name: /todo list/i })).getAllByRole(
@@ -151,7 +142,9 @@ describe('Todo app', () => {
   });
 
   it('deletes todos', async () => {
-    await userEvent.click(screen.getAllByText(/delete task/i)[1]);
+    const { user } = setup(<TestApp />);
+
+    await user.click(screen.getAllByText(/delete task/i)[1]);
 
     const todosCount = initialState.todos.length;
     const list = screen.getByRole('list', { name: /todo list/i });
@@ -167,27 +160,29 @@ describe('Todo app', () => {
   });
 
   it('changes the completion state', async () => {
+    const { user } = setup(<TestApp />);
     const checkmark = within(
       screen.getByRole('list', { name: /todo list/i }),
     ).getAllByRole('checkbox')[0];
     const checked = initialState.todos[0].completed;
 
-    await userEvent.click(checkmark);
+    await user.click(checkmark);
 
     expect((checkmark as HTMLInputElement).checked).toBe(!checked);
 
-    await userEvent.click(checkmark);
+    await user.click(checkmark);
 
     expect((checkmark as HTMLInputElement).checked).toBe(checked);
   });
 
   it('filters the todo list', async () => {
+    const { user } = setup(<TestApp />);
     const { todos } = initialState;
     const completedCount = todos.filter(({ completed }) => completed).length;
     const activeCount = todos.length - completedCount;
     const list = screen.getByRole('list', { name: /todo list/i });
 
-    await userEvent.click(screen.getByRole('radio', { name: 'active' }));
+    await user.click(screen.getByRole('radio', { name: 'active' }));
 
     expect(within(list).getAllByRole('listitem').length).toBe(activeCount);
     within(list)
@@ -196,7 +191,7 @@ describe('Todo app', () => {
         expect(checkmark).not.toBeChecked();
       });
 
-    await userEvent.click(screen.getByRole('radio', { name: 'completed' }));
+    await user.click(screen.getByRole('radio', { name: 'completed' }));
 
     expect(within(list).getAllByRole('listitem').length).toBe(completedCount);
     within(list)
@@ -207,14 +202,13 @@ describe('Todo app', () => {
   });
 
   it('deletes all completed todos', async () => {
+    const { user } = setup(<TestApp />);
     const list = screen.getByRole('list', { name: /todo list/i });
     const activeCount = initialState.todos.filter(
       ({ completed }) => !completed,
     ).length;
 
-    await userEvent.click(
-      screen.getByRole('button', { name: /clear completed/i }),
-    );
+    await user.click(screen.getByRole('button', { name: /clear completed/i }));
 
     expect(within(list).getAllByRole('listitem').length).toBe(activeCount);
     within(list)
