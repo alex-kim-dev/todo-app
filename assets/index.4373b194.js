@@ -377,5 +377,5 @@ Error generating stack: `+i.message+`
     ${t.mdUp} {
       margin-top: 5.2rem;
     }
-  `,""),dw=()=>{const[{colorTheme:e}]=zo();return ze(c0,{theme:sw(e),children:[z(G0,{}),z(aw,{children:ze(cw,{children:[z(tw,{}),z(lw,{}),z(G1,{}),z(fw,{children:"Long press on a task to active drag and drop"})]})})]})},pw=document.getElementById("root"),hw=bp(pw);hw.render(z(gn.StrictMode,{children:z(Y0,{children:z(dw,{})})}));
-//# sourceMappingURL=index.9be66c6a.js.map
+  `,""),dw=()=>{const[{colorTheme:e}]=zo();return ze(c0,{theme:sw(e),children:[z(G0,{}),z(aw,{children:ze(cw,{children:[z(tw,{}),z(lw,{}),z(G1,{}),z(fw,{children:"Long press on a task to activate drag and drop"})]})})]})},pw=document.getElementById("root"),hw=bp(pw);hw.render(z(gn.StrictMode,{children:z(Y0,{children:z(dw,{})})}));
+//# sourceMappingURL=index.4373b194.js.map
