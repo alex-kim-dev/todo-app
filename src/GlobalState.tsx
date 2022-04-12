@@ -2,6 +2,7 @@ import produce from 'immer';
 import { nanoid } from 'nanoid';
 import {
   createContext,
+  ReactNode,
   useContext,
   useEffect,
   useMemo,
@@ -102,7 +103,11 @@ export const useGlobalState = (): [IGlobalState, React.Dispatch<Action>] => {
   return useContext(stateContext);
 };
 
-const GlobalState: React.FC = ({ children }) => {
+interface GlobalStateProps {
+  children?: ReactNode;
+}
+
+const GlobalState: React.FC<GlobalStateProps> = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState, (initState) => {
     try {
       const lsState = window.localStorage.getItem('global-state');
