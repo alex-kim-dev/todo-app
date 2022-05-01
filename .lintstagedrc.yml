@@ -5,6 +5,6 @@
   - tsc-files --noEmit src/vite-env.d.ts
 
 '!(*test).{j,t}s{,x}':
-  - jest --findRelatedTests
+  - jest --findRelatedTests --passWithNoTests
 
 '*.{json,yml,md}': prettier --write
