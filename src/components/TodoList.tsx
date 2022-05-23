@@ -7,6 +7,7 @@ import {
   KeyboardSensor,
   MouseSensor,
   TouchSensor,
+  UniqueIdentifier,
   useSensor,
   useSensors,
 } from '@dnd-kit/core';
@@ -46,7 +47,9 @@ const matchTodo = {
 
 const TodoList: React.FC = () => {
   const [{ todos, todosFilter }, dispatch] = useGlobalState();
-  const [draggedTodoId, setDraggedTodoId] = useState<Id | null>(null);
+  const [draggedTodoId, setDraggedTodoId] = useState<UniqueIdentifier | null>(
+    null,
+  );
 
   const draggedTodo = todos.find(({ id }) => id === draggedTodoId) ?? emptyTodo;
   const todosOrder = todos.map(({ id }) => id);
@@ -76,7 +79,8 @@ const TodoList: React.FC = () => {
   };
 
   const handleDragEnd = ({ active, over }: DragEndEvent): void => {
-    if (over?.id) dispatch(reorderTodos({ move: active.id, after: over.id }));
+    if (over?.id)
+      dispatch(reorderTodos({ move: active.id as Id, after: over.id as Id }));
     setDraggedTodoId(null);
   };
 
