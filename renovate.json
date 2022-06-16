@@ -1,5 +1,7 @@
 {
-  "extends": [
-    "config:base"
-  ]
+  "extends": ["config:base", "group:allNonMajor"],
+  "schedule": "every 4 weeks at saturday 3am",
+  "semanticCommitScope": "",
+  "semanticCommitType": "chore",
+  "prHourlyLimit": 0
 }
