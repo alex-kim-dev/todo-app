@@ -3,5 +3,11 @@
   "schedule": "every 4 weeks on saturday at 3:00am",
   "semanticCommitScope": "",
   "semanticCommitType": "chore",
-  "prHourlyLimit": 0
+  "prHourlyLimit": 0,
+  "packageRules": [
+    {
+      "matchManagers": ["github-actions"],
+      "groupName": "github-actions"
+    }
+  ]
 }
