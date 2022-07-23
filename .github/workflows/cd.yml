@@ -86,7 +86,7 @@ jobs:
         uses: actions/download-artifact@v3
 
       - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@v4.3.4
+        uses: JamesIves/github-pages-deploy-action@v4.4.0
         with:
           branch: gh-pages
           folder: todo-app
