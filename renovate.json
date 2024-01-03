@@ -1,5 +1,15 @@
 {
-  "extends": ["config:best-practices", "packages:linters", "packages:jsTest"],
+  "extends": ["config:best-practices"],
   "schedule": "* 2 * * SAT#1",
-  "semanticCommitScope": ""
+  "semanticCommitScope": "",
+  "packageRules": [
+    {
+      "extends": "packages:linters",
+      "groupName": "linters"
+    },
+    {
+      "extends": "packages:jsTest",
+      "groupName": "testing"
+    }
+  ]
 }
