@@ -4,11 +4,11 @@
   "semanticCommitScope": "",
   "packageRules": [
     {
-      "extends": "packages:linters",
+      "extends": ["packages:linters"],
       "groupName": "linters"
     },
     {
-      "extends": "packages:jsTest",
+      "extends": ["packages:jsTest"],
       "groupName": "testing"
     }
   ]
