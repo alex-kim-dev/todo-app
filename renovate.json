@@ -1,5 +1,18 @@
 {
   "extends": ["config:best-practices"],
   "schedule": "* 2 * * SAT#1",
-  "semanticCommitScope": ""
+  "semanticCommitScope": "",
+  "packageRules": [
+    {
+      "matchPackagePatterns": ["^eslint", "^@typescript-eslint/", "^prettier"],
+      "groupName": "eslint-prettier"
+    },
+    {
+      "matchPackagePatterns": [
+        "^@testing-library/",
+        "^@types/testing-library__"
+      ],
+      "groupName": "testing-library"
+    }
+  ]
 }
