@@ -378,4 +378,4 @@ Error generating stack: `+i.message+`
       margin-top: 5.2rem;
     }
   `,""),Qw=()=>{const[{colorTheme:e}]=jo();return ce(B0,{theme:Ww(e),children:[O(yy,{}),O(Hw,{children:ce(Vw,{children:[O(Iw,{}),O(Uw,{}),O(zw,{}),O(Kw,{children:"Long press on a task to activate drag and drop"})]})})]})},Yw=document.getElementById("root"),Xw=fh(Yw);Xw.render(O($o.StrictMode,{children:O(gy,{children:O(Qw,{})})}));
-//# sourceMappingURL=index.91972737.js.map
+//# sourceMappingURL=index.75c33023.js.map
