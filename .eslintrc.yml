@@ -30,6 +30,9 @@ rules:
     - error
     - namedComponents: arrow-function
       unnamedComponents: arrow-function
+  react/no-unknown-property:
+    - error
+    - ignore: ['css']
   no-empty:
     - error
     - allowEmptyCatch: true
