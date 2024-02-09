@@ -6,17 +6,22 @@
   "prHourlyLimit": 0,
   "packageRules": [
     {
-      "extends": ["packages:linters"],
-      "groupName": "linters"
+      "groupName": "linters",
+      "extends": ["packages:linters"]
     },
     {
-      "extends": ["packages:jsTest"],
-      "groupName": "testing"
+      "groupName": "testing",
+      "extends": ["packages:jsTest"]
     },
     {
+      "groupName": "ci",
       "matchCategories": ["ci"],
-      "matchPackagePatterns": ["*"],
-      "groupName": "ci"
+      "matchPackagePatterns": ["*"]
+    },
+    {
+      "groupName": "vite",
+      "matchPackageNames": ["vite"],
+      "matchPackagePrefixes": ["@vitejs/"]
     }
   ]
 }
