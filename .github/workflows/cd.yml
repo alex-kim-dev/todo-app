@@ -3,10 +3,10 @@ name: CD
 on:
   push:
     branches: [main]
-    paths-ignore: ['*.md', LICENSE, .gitignore, .husky/**]
+    paths-ignore: ['*.md', LICENSE, .gitignore, .husky/**, renovate.json]
   pull_request:
     branches: [main]
-    paths-ignore: ['*.md', LICENSE, .gitignore, .husky/**]
+    paths-ignore: ['*.md', LICENSE, .gitignore, .husky/**, renovate.json]
   workflow_dispatch:
 
 concurrency:
