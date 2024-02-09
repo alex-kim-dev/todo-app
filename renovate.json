@@ -1,7 +1,9 @@
 {
   "extends": ["config:best-practices"],
-  "schedule": "* 2 * * SAT#1",
+  "schedule": "* 2 1 * *",
   "semanticCommitScope": "",
+  "prConcurrentLimit": 5,
+  "prHourlyLimit": 0,
   "packageRules": [
     {
       "extends": ["packages:linters"],
