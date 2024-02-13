@@ -113,6 +113,7 @@ const GlobalState: React.FC<GlobalStateProps> = ({ children }) => {
       const lsState = window.localStorage.getItem('global-state');
       return lsState ? JSON.parse(lsState) : initState;
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error(
         "Local storage is not accessible, the app state won't be saved!",
       );
