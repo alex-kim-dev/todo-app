@@ -1,4 +1,3 @@
-[![Renovate](https://img.shields.io/badge/maintained_with-renovate-success?logo=maintenance)](https://app.renovatebot.com/dashboard#github/alex-kim-dev/todo-app)
 [![CD](https://github.com/alex-kim-dev/todo-app/actions/workflows/cd.yml/badge.svg)](https://github.com/alex-kim-dev/todo-app/actions/workflows/cd.yml)
 
 # Todo app

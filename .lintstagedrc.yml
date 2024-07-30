@@ -1,10 +1,9 @@
 '*.{j,t}s{,x}':
   - eslint --fix
+  - vitest related --run --passWithNoTests
 
 '*.ts{,x}':
-  - tsc-files --noEmit src/vite-env.d.ts
+  - tsc-files --noEmit src/global.d.ts
 
-'!(*test).{j,t}s{,x}':
-  - jest --findRelatedTests --passWithNoTests
-
-'*.{json,yml,md}': prettier --write
+'*.{js,ts,jsx,tsx,css,html,json,yml,yaml,md}':
+  - prettier --write
