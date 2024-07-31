@@ -1,4 +1,4 @@
-import { ColorThemes, Filters, Id } from './types';
+import { ColorThemes, Filters, ID } from './types';
 
 export enum ActionTypes {
   setColorTheme = 'SET_COLOR_THEME',
@@ -10,82 +10,76 @@ export enum ActionTypes {
   reorderTodos = 'REORDER_TODOS',
 }
 
-interface ISetColorTheme {
+interface ActionSetColorTheme {
   type: ActionTypes.setColorTheme;
   payload: ColorThemes;
 }
 
-interface IAddTodo {
+interface ActionAddTodo {
   type: ActionTypes.addTodo;
   payload: string;
 }
 
-interface IToggleTodoCompletion {
+interface ActionToggleTodoCompletion {
   type: ActionTypes.toggleTodoCompletion;
-  payload: Id;
+  payload: ID;
 }
 
-interface IDeleteTodo {
+interface ActionDeleteTodo {
   type: ActionTypes.deleteTodo;
-  payload: Id;
+  payload: ID;
 }
 
-interface IClearCompleted {
+interface ActionClearCompleted {
   type: ActionTypes.clearCompleted;
 }
 
-interface ISetFilter {
+interface ActionSetFilter {
   type: ActionTypes.setFilter;
   payload: Filters;
 }
 
-interface IReorderTodos {
+interface ActionReorderTodos {
   type: ActionTypes.reorderTodos;
-  payload: { move: Id; after: Id };
+  payload: { move: ID; after: ID };
 }
 
 export type Action =
-  | ISetColorTheme
-  | IAddTodo
-  | IToggleTodoCompletion
-  | IDeleteTodo
-  | IClearCompleted
-  | ISetFilter
-  | IReorderTodos;
+  | ActionSetColorTheme
+  | ActionAddTodo
+  | ActionToggleTodoCompletion
+  | ActionDeleteTodo
+  | ActionClearCompleted
+  | ActionSetFilter
+  | ActionReorderTodos;
 
-export const setColorTheme = (colorTheme: ColorThemes): ISetColorTheme => ({
+export const setColorTheme = (
+  colorTheme: ColorThemes,
+): ActionSetColorTheme => ({
   type: ActionTypes.setColorTheme,
   payload: colorTheme,
 });
 
-export const addTodo = (text: string): IAddTodo => ({
+export const addTodo = (text: string): ActionAddTodo => ({
   type: ActionTypes.addTodo,
   payload: text,
 });
 
-export const toggleTodoCompletion = (id: Id): IToggleTodoCompletion => ({
+export const toggleTodoCompletion = (id: ID): ActionToggleTodoCompletion => ({
   type: ActionTypes.toggleTodoCompletion,
   payload: id,
 });
 
-export const deleteTodo = (id: Id): IDeleteTodo => ({
+export const deleteTodo = (id: ID): ActionDeleteTodo => ({
   type: ActionTypes.deleteTodo,
   payload: id,
 });
 
-export const clearCompleted = (): IClearCompleted => ({
+export const clearCompleted = (): ActionClearCompleted => ({
   type: ActionTypes.clearCompleted,
 });
 
-export const setFilter = (value: Filters): ISetFilter => ({
+export const setFilter = (value: Filters): ActionSetFilter => ({
   type: ActionTypes.setFilter,
-  payload: value,
-});
-
-export const reorderTodos = (value: {
-  move: Id;
-  after: Id;
-}): IReorderTodos => ({
-  type: ActionTypes.reorderTodos,
   payload: value,
 });

@@ -1,9 +1,11 @@
 import styled from '@emotion/styled';
+import type { FormEventHandler } from 'react';
 
-import { addTodo } from '../actions';
-import { srOnly } from '../GlobalCss';
-import { useGlobalState } from '../GlobalState';
-import Surface from './Surface';
+import { addTodo } from '~/actions';
+import { srOnly } from '~/GlobalCss';
+import { useGlobalState } from '~/GlobalState';
+
+import { Surface } from './Surface';
 
 const Form = styled(Surface.withComponent('form'))(
   ({ theme: { mq } }) => `
@@ -68,19 +70,17 @@ const TextField = styled.input(
   `,
 );
 
-const NewTodoForm: React.FC = () => {
-  const [, dispatch] = useGlobalState();
+export const NewTodoForm: React.FC = () => {
+  const { dispatch } = useGlobalState();
 
-  const handleNewTodoSubmit = (
-    event: React.FormEvent<HTMLFormElement>,
-  ): void => {
+  const handleNewTodoSubmit: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
     const form = event.currentTarget;
-    const task = (new FormData(form).get('new-todo') as string).trim();
+    const task = new FormData(form).get('new-todo');
 
-    if (!task) return;
+    if (typeof task !== 'string') return;
 
-    dispatch(addTodo(task));
+    dispatch(addTodo(task.trim()));
     form.reset();
   };
 
@@ -98,5 +98,3 @@ const NewTodoForm: React.FC = () => {
     </Form>
   );
 };
-
-export default NewTodoForm;

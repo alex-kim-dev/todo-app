@@ -1,16 +1,16 @@
-import React from 'react';
+import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
-import App from './App';
-import GlobalState from './GlobalState';
+import { App } from '~/App';
+import { GlobalState } from '~/GlobalState';
 
 const container = document.getElementById('root') as HTMLDivElement;
 const root = createRoot(container);
 
 root.render(
-  <React.StrictMode>
+  <StrictMode>
     <GlobalState>
       <App />
     </GlobalState>
-  </React.StrictMode>,
+  </StrictMode>,
 );

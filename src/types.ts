@@ -1,7 +1,7 @@
-export type Id = string;
+export type ID = string;
 
-export interface ITodo {
-  id: Id;
+export interface Todo {
+  id: ID;
   task: string;
   completed: boolean;
 }

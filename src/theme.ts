@@ -1,6 +1,6 @@
-import { ColorThemes } from './types';
+import { ColorThemes } from '~/types';
 
-export interface ITheme {
+export interface Theme {
   palette: {
     accent: string;
     bgGradient: { from: string; to: string };
@@ -43,12 +43,12 @@ const palettes = {
   },
 };
 
-const getTheme = (colorTheme: ColorThemes): ITheme => ({
+export const getTheme = (colorTheme: ColorThemes): Theme => ({
   palette: {
     accent: 'hsl(220, 98%, 61%)',
     bgGradient: { from: 'hsl(192, 100%, 67%)', to: 'hsl(280, 87%, 65%)' },
     white: 'hsl(0, 0%, 100%)',
-    ...(palettes[colorTheme] ?? {}),
+    ...palettes[colorTheme],
     colorTheme,
   },
   mq: {
@@ -57,5 +57,3 @@ const getTheme = (colorTheme: ColorThemes): ITheme => ({
     xlUp: minWidthMq(1440),
   },
 });
-
-export default getTheme;

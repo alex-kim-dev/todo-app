@@ -1,9 +1,10 @@
 import styled from '@emotion/styled';
+import type { ComponentProps } from 'react';
 
-import { setColorTheme } from '../actions';
-import { srOnly } from '../GlobalCss';
-import { useGlobalState } from '../GlobalState';
-import { ColorThemes } from '../types';
+import { setColorTheme } from '~/actions';
+import { srOnly } from '~/GlobalCss';
+import { useGlobalState } from '~/GlobalState';
+import { ColorThemes } from '~/types';
 
 const Container = styled.header`
   display: flex;
@@ -53,11 +54,16 @@ const ThemeSwitch = styled.button(
   `,
 );
 
-const Header: React.FC = () => {
-  const [{ colorTheme }, dispatch] = useGlobalState();
+export const Header: React.FC = () => {
+  const {
+    state: { colorTheme },
+    dispatch,
+  } = useGlobalState();
   const isDarkThemeOn = colorTheme === ColorThemes.dark;
 
-  const handleThemeSwitchClick = (): void => {
+  const handleThemeSwitchClick: ComponentProps<
+    typeof ThemeSwitch
+  >['onClick'] = () => {
     dispatch(
       setColorTheme(isDarkThemeOn ? ColorThemes.light : ColorThemes.dark),
     );
@@ -77,5 +83,3 @@ const Header: React.FC = () => {
     </Container>
   );
 };
-
-export default Header;

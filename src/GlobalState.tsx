@@ -1,24 +1,26 @@
-import produce from 'immer';
+import { produce } from 'immer';
 import { nanoid } from 'nanoid';
 import {
   createContext,
-  ReactNode,
+  type Dispatch,
+  type FC,
+  type ReactNode,
   useContext,
   useEffect,
   useMemo,
   useReducer,
 } from 'react';
 
-import { Action, ActionTypes } from './actions';
-import { ColorThemes, Filters, ITodo } from './types';
+import { type Action, ActionTypes } from '~/actions';
+import { ColorThemes, Filters, type Todo } from '~/types';
 
-interface IGlobalState {
+interface GlobalState {
   colorTheme: ColorThemes;
-  todos: ITodo[];
+  todos: Todo[];
   todosFilter: Filters;
 }
 
-export const initialState: IGlobalState = {
+export const initialState: GlobalState = {
   colorTheme: window.matchMedia('(prefers-color-scheme: dark)').matches
     ? ColorThemes.dark
     : ColorThemes.light,
@@ -41,7 +43,7 @@ export const initialState: IGlobalState = {
   todosFilter: Filters.all,
 };
 
-export const reducer = produce((state: IGlobalState, action: Action): void => {
+export const reducer = produce((state: GlobalState, action: Action): void => {
   switch (action.type) {
     case ActionTypes.setColorTheme: {
       state.colorTheme = action.payload;
@@ -49,7 +51,7 @@ export const reducer = produce((state: IGlobalState, action: Action): void => {
     }
 
     case ActionTypes.addTodo: {
-      const todo: ITodo = {
+      const todo: Todo = {
         id: nanoid(),
         task: action.payload,
         completed: false,
@@ -95,11 +97,17 @@ export const reducer = produce((state: IGlobalState, action: Action): void => {
   }
 });
 
-export const stateContext = createContext<
-  [IGlobalState, React.Dispatch<Action>]
->([initialState, () => {}]);
+interface StateContextValue {
+  state: GlobalState;
+  dispatch: Dispatch<Action>;
+}
 
-export const useGlobalState = (): [IGlobalState, React.Dispatch<Action>] => {
+export const stateContext = createContext<StateContextValue>({
+  state: initialState,
+  dispatch: () => {},
+});
+
+export const useGlobalState = (): StateContextValue => {
   return useContext(stateContext);
 };
 
@@ -107,13 +115,12 @@ interface GlobalStateProps {
   children?: ReactNode;
 }
 
-const GlobalState: React.FC<GlobalStateProps> = ({ children }) => {
+export const GlobalState: FC<GlobalStateProps> = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState, (initState) => {
     try {
       const lsState = window.localStorage.getItem('global-state');
-      return lsState ? JSON.parse(lsState) : initState;
+      return lsState ? (JSON.parse(lsState) as GlobalState) : initState;
     } catch (error) {
-      // eslint-disable-next-line no-console
       console.error(
         "Local storage is not accessible, the app state won't be saved!",
       );
@@ -124,19 +131,19 @@ const GlobalState: React.FC<GlobalStateProps> = ({ children }) => {
   useEffect(() => {
     try {
       window.localStorage.setItem('global-state', JSON.stringify(state));
-    } catch (error) {}
+    } catch (error) {
+      return;
+    }
   }, [state]);
 
-  const valueToPass = useMemo<[IGlobalState, React.Dispatch<Action>]>(
-    () => [state, dispatch],
+  const contextValue = useMemo<StateContextValue>(
+    () => ({ state, dispatch }),
     [state],
   );
 
   return (
-    <stateContext.Provider value={valueToPass}>
+    <stateContext.Provider value={contextValue}>
       {children}
     </stateContext.Provider>
   );
 };
-
-export default GlobalState;

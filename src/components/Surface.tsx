@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-export default styled.div(
+export const Surface = styled.div(
   ({ theme: { palette } }) => `
     background-color: ${palette.bgSecondary};
     border-radius: 0.5rem;

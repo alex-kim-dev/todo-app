@@ -1,32 +1,13 @@
-import { render, screen, within } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import React from 'react';
+import { App } from '~/App';
+import { initialState } from '~/GlobalState';
+import { getTheme } from '~/theme';
+import { ColorThemes, Filters } from '~/types';
 
-import App from '../App';
-import { initialState, reducer, stateContext } from '../GlobalState';
-import getTheme from '../theme';
-import { ColorThemes, Filters } from '../types';
-
-const TestApp: React.FC = () => {
-  const valueToPass = React.useReducer(reducer, initialState);
-
-  return (
-    <React.StrictMode>
-      <stateContext.Provider value={valueToPass}>
-        <App />
-      </stateContext.Provider>
-    </React.StrictMode>
-  );
-};
-
-const setup = (component: React.ReactElement) => ({
-  user: userEvent.setup(),
-  ...render(component),
-});
+import { render, screen, user, within } from './utils';
 
 describe('Todo app', () => {
   it('renders correctly', () => {
-    render(<TestApp />);
+    render(<App />);
 
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(
       /todo/i,
@@ -75,7 +56,8 @@ describe('Todo app', () => {
   });
 
   it('switches a color theme', async () => {
-    const { user } = setup(<TestApp />);
+    render(<App />);
+
     const checked = initialState.colorTheme === ColorThemes.dark;
 
     expect(
@@ -107,7 +89,8 @@ describe('Todo app', () => {
   });
 
   it('adds a new todo', async () => {
-    const { user } = setup(<TestApp />);
+    render(<App />);
+
     const todosCount = initialState.todos.length;
     const input = screen.getByRole('textbox', { name: /new task/i });
 
@@ -140,7 +123,7 @@ describe('Todo app', () => {
   });
 
   it('deletes todos', async () => {
-    const { user } = setup(<TestApp />);
+    render(<App />);
 
     await user.click(screen.getAllByText(/delete task/i)[1]);
 
@@ -158,7 +141,8 @@ describe('Todo app', () => {
   });
 
   it('changes the completion state', async () => {
-    const { user } = setup(<TestApp />);
+    render(<App />);
+
     const checkmark = within(
       screen.getByRole('list', { name: /todo list/i }),
     ).getAllByRole('checkbox')[0];
@@ -174,7 +158,8 @@ describe('Todo app', () => {
   });
 
   it('filters the todo list', async () => {
-    const { user } = setup(<TestApp />);
+    render(<App />);
+
     const { todos } = initialState;
     const completedCount = todos.filter(({ completed }) => completed).length;
     const activeCount = todos.length - completedCount;
@@ -200,7 +185,8 @@ describe('Todo app', () => {
   });
 
   it('deletes all completed todos', async () => {
-    const { user } = setup(<TestApp />);
+    render(<App />);
+
     const list = screen.getByRole('list', { name: /todo list/i });
     const activeCount = initialState.todos.filter(
       ({ completed }) => !completed,

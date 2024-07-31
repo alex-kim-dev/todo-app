@@ -1,11 +1,13 @@
 import styled from '@emotion/styled';
+import type { ChangeEventHandler } from 'react';
 
-import { clearCompleted, setFilter } from '../actions';
-import { useGlobalState } from '../GlobalState';
-import { Filters } from '../types';
-import Filter from './Filter';
-import Surface from './Surface';
-import TodoList from './TodoList';
+import { clearCompleted, setFilter } from '~/actions';
+import { useGlobalState } from '~/GlobalState';
+import { Filters } from '~/types';
+
+import { Filter } from './Filter';
+import { Surface } from './Surface';
+import { TodoList } from './TodoList';
 
 const Container = styled.main(
   ({ theme: { mq } }) => `
@@ -68,17 +70,20 @@ const ClearBtn = styled.button(
   `,
 );
 
-const Content: React.FC = () => {
-  const [{ todos, todosFilter }, dispatch] = useGlobalState();
+export const Content: React.FC = () => {
+  const {
+    state: { todos, todosFilter },
+    dispatch,
+  } = useGlobalState();
   const countText = `${todos.length} item${todos.length === 1 ? '' : 's'} left`;
 
   const handleClearBtnClick = (): void => {
     dispatch(clearCompleted());
   };
 
-  const handleFilterChange = ({
+  const handleFilterChange: ChangeEventHandler<HTMLInputElement> = ({
     currentTarget,
-  }: React.ChangeEvent<HTMLInputElement>): void => {
+  }) => {
     dispatch(setFilter(currentTarget.value as Filters));
   };
 
@@ -99,5 +104,3 @@ const Content: React.FC = () => {
     </Container>
   );
 };
-
-export default Content;

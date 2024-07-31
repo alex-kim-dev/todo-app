@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
+import type { ChangeEventHandler } from 'react';
 
-import { srOnly } from '../GlobalCss';
+import { srOnly } from '~/GlobalCss';
 
 const Label = styled.label<{ checked: boolean }>(
   ({ theme: { mq, palette }, checked }) => `
@@ -51,10 +52,10 @@ const Label = styled.label<{ checked: boolean }>(
 
 interface CheckmarkProps {
   checked: boolean;
-  onChange: () => void;
+  onChange: ChangeEventHandler<HTMLInputElement>;
 }
 
-const Checkmark: React.FC<CheckmarkProps> = ({ checked, onChange }) => {
+export const Checkmark: React.FC<CheckmarkProps> = ({ checked, onChange }) => {
   return (
     <Label checked={checked}>
       <span css={srOnly}>{checked ? 'Completed' : 'To do'}</span>
@@ -63,5 +64,3 @@ const Checkmark: React.FC<CheckmarkProps> = ({ checked, onChange }) => {
     </Label>
   );
 };
-
-export default Checkmark;

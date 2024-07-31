@@ -1,8 +1,8 @@
 import { css, Global } from '@emotion/react';
 
-import { ITheme } from './theme';
+import type { Theme } from '~/theme';
 
-const globalCss = ({ palette }: ITheme) => css`
+const globalCss = ({ palette }: Theme) => css`
   html {
     font-size: 62.5%;
   }
@@ -30,8 +30,6 @@ export const srOnly = css`
   clip-path: inset(50%);
 `;
 
-const GlobalCss: React.FC = () => {
+export const GlobalCss: React.FC = () => {
   return <Global styles={globalCss} />;
 };
-
-export default GlobalCss;

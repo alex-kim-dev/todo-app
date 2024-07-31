@@ -1,8 +1,10 @@
 import styled from '@emotion/styled';
+import type { ChangeEventHandler } from 'react';
 
-import { srOnly } from '../GlobalCss';
-import { Filters } from '../types';
-import Surface from './Surface';
+import { srOnly } from '~/GlobalCss';
+import { Filters } from '~/types';
+
+import { Surface } from './Surface';
 
 const Fieldset = styled(Surface.withComponent('fieldset'))(
   ({ theme: { mq } }) => `
@@ -56,10 +58,10 @@ const Option = styled.label<{ checked?: boolean }>(
 
 interface FilterProps {
   option: Filters;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: ChangeEventHandler<HTMLInputElement>;
 }
 
-const Filter: React.FC<FilterProps> = ({ option, onChange }) => {
+export const Filter: React.FC<FilterProps> = ({ option, onChange }) => {
   return (
     <Fieldset aria-controls='todo-list'>
       <legend css={srOnly}>Filter todos</legend>
@@ -78,5 +80,3 @@ const Filter: React.FC<FilterProps> = ({ option, onChange }) => {
     </Fieldset>
   );
 };
-
-export default Filter;

@@ -1,13 +1,10 @@
 import { ThemeProvider } from '@emotion/react';
 import styled from '@emotion/styled';
-import React from 'react';
 
-import Content from './components/Content';
-import Header from './components/Header';
-import NewTodoForm from './components/NewTodoForm';
-import GlobalCss from './GlobalCss';
-import { useGlobalState } from './GlobalState';
-import getTheme from './theme';
+import { Content, Header, NewTodoForm } from '~/components';
+import { GlobalCss } from '~/GlobalCss';
+import { useGlobalState } from '~/GlobalState';
+import { getTheme } from '~/theme';
 
 const Background = styled.div(
   ({ theme: { mq, palette } }) => `
@@ -50,8 +47,10 @@ const Hint = styled.p(
   `,
 );
 
-const App: React.FC = () => {
-  const [{ colorTheme }] = useGlobalState();
+export const App: React.FC = () => {
+  const {
+    state: { colorTheme },
+  } = useGlobalState();
 
   return (
     <ThemeProvider theme={getTheme(colorTheme)}>
@@ -67,5 +66,3 @@ const App: React.FC = () => {
     </ThemeProvider>
   );
 };
-
-export default App;
