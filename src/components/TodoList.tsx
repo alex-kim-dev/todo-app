@@ -7,11 +7,11 @@ import { Filters, type ID } from '~/types';
 
 import { TodoItem } from './TodoItem';
 
-const List = styled.ul`
-  list-style: none;
-  margin: 0;
-  padding: 0;
-`;
+const List = styled.ul({
+  listStyle: 'none',
+  margin: 0,
+  padding: 0,
+});
 
 const matchTodo = {
   [Filters.all]: () => true,

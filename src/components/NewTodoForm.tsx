@@ -2,73 +2,70 @@ import styled from '@emotion/styled';
 import type { FormEventHandler } from 'react';
 
 import { addTodo } from '~/actions';
-import { srOnly } from '~/GlobalCss';
+import { hidden } from '~/GlobalCss';
 import { useGlobalState } from '~/GlobalState';
 
 import { Surface } from './Surface';
 
-const Form = styled(Surface.withComponent('form'))(
-  ({ theme: { mq } }) => `
-    margin-top: 3.3rem;
+const Form = styled(Surface.withComponent('form'))(({ theme: { mq } }) => ({
+  marginBlockStart: '3.3rem',
 
-    ${mq.mdUp} {
-      margin-top: 4rem;
-    }
-  `,
-);
+  [mq.mdUp]: {
+    marginBlockStart: '4rem',
+  },
+}));
 
-const Label = styled.label`
-  display: grid;
-  align-items: center;
-`;
+const Label = styled.label({
+  display: 'grid',
+  alignItems: 'center',
+});
 
-const Icon = styled.span(
-  ({ theme: { palette, mq } }) => `
-    --size: 2rem;
-    grid-area: 1 / 1 / 2 / -1;
-    display: block;
-    margin-left: 2rem;
-    width: var(--size);
-    height: var(--size);
-    border: 0.1rem solid ${palette.muted};
-    border-radius: 50%;
+const Icon = styled.span(({ theme: { palette, mq } }) => ({
+  '--size': '2rem',
+  gridArea: '1 / 1 / 2 / -1',
+  display: 'block',
+  marginInlineStart: '2rem',
+  inlineSize: 'var(--size)',
+  blockSize: 'var(--size)',
+  border: `0.1rem solid ${palette.muted}`,
+  borderRadius: '50%',
 
-    ${mq.smUp} {
-      --size: 2.4rem;
-      margin-left: 2.2rem;
-    }
+  [mq.smUp]: {
+    '--size': '2.4rem',
+    marginInlineStart: '2.2rem',
+  },
 
-    ${mq.mdUp} {
-      margin-left: 2.4rem;
-    }
-  `,
-);
+  [mq.mdUp]: {
+    marginInlineStart: '2.4rem',
+  },
+}));
 
-const TextField = styled.input(
-  ({ theme: { palette, mq } }) => `
-    grid-area: 1 / 1 / -1 / -1;
-    padding: 1.9rem 2rem 1.7rem 5.2rem;
-    width: 100%;
-    border: 0;
-    background-color: transparent;
-    font-size: 1.2rem;
-    color: ${palette.text};
+const TextField = styled.input(({ theme: { palette, mq } }) => ({
+  gridArea: '1 / 1 / -1 / -1',
+  paddingInline: '5.2rem 2rem',
+  paddingBlock: '1.9rem 1.7rem',
+  inlineSize: '100%',
+  border: 0,
+  backgroundColor: 'transparent',
+  fontSize: '1.2rem',
+  color: palette.text,
 
-    &::placeholder {
-      color: ${palette.textSecondary};
-    }
+  '&::placeholder': {
+    color: palette.textSecondary,
+  },
 
-    ${mq.smUp} {
-      padding: 2rem 2.2rem 2rem 6.4rem;
-      font-size: 1.6rem;
-    }
+  [mq.smUp]: {
+    paddingInline: '6.4rem 2.2rem',
+    paddingBlock: '2rem',
+    fontSize: '1.6rem',
+  },
 
-    ${mq.mdUp} {
-      padding: 2.4rem 2.4rem 2.2rem 7.2rem;
-      font-size: 1.8rem;
-    }
-  `,
-);
+  [mq.mdUp]: {
+    paddingInline: '7.2rem 2.4rem',
+    paddingBlock: '2.4rem 2.2rem',
+    fontSize: '1.8rem',
+  },
+}));
 
 export const NewTodoForm: React.FC = () => {
   const { dispatch } = useGlobalState();
@@ -87,7 +84,7 @@ export const NewTodoForm: React.FC = () => {
   return (
     <Form aria-label='New todo form' onSubmit={handleNewTodoSubmit}>
       <Label>
-        <span css={srOnly}>New task</span>
+        <span css={hidden}>New task</span>
         <Icon />
         <TextField
           type='text'

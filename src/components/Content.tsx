@@ -9,66 +9,64 @@ import { Filter } from './Filter';
 import { Surface } from './Surface';
 import { TodoList } from './TodoList';
 
-const Container = styled.main(
-  ({ theme: { mq } }) => `
-    position: relative;
-    margin-top: 1.6rem;
+const Container = styled.main(({ theme: { mq } }) => ({
+  position: 'relative',
+  marginBlockStart: '1.6rem',
 
-    ${mq.mdUp} {
-      margin-top: 2.4rem;
-    }
-  `,
-);
+  [mq.mdUp]: {
+    marginBlockStart: '2.4rem',
+  },
+}));
 
-const Status = styled.div(
-  ({ theme: { palette, mq } }) => `
-    display: grid;
-    grid-template-columns: auto auto;
-    grid-gap: 1rem;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1.8rem 2rem 2rem;
-    color: ${palette.textSecondary};
-    font-size: 1.2rem;
+const Status = styled.div(({ theme: { palette, mq } }) => ({
+  display: 'grid',
+  gridTemplateColumns: 'auto auto',
+  gridGap: '1rem',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  paddingInline: '2rem',
+  paddingBlock: '1.8rem 2rem',
+  color: palette.textSecondary,
+  fontSize: '1.2rem',
 
-    & > span {
-      grid-area: 1 / 1 / -1 / 2;
-    }
+  '& > span': {
+    gridArea: '1 / 1 / -1 / 2',
+  },
 
-    & > button {
-      justify-self: end;
-      grid-area: 1 / -2 / -1 / -1;
-    }
+  '& > button': {
+    justifySelf: 'end',
+    gridArea: '1 / -2 / -1 / -1',
+  },
 
-    ${mq.smUp} {
-      padding: 1.9rem 2.4rem 1.7rem;
-      font-size: 1.4rem;
-    }
+  [mq.smUp]: {
+    paddingInline: '2.4rem',
+    paddingBlock: '1.9rem 1.7rem',
+    fontSize: '1.4rem',
+  },
 
-    ${mq.mdUp} {
-      grid-template-columns: 1fr 22rem 1fr;
-      min-height: 5rem;
-    }
-  `,
-);
+  [mq.mdUp]: {
+    gridTemplateColumns: '1fr 22rem 1fr',
+    minBlockSize: '5rem',
+  },
+}));
 
-const ClearBtn = styled.button(
-  ({ theme: { palette } }) => `
-    margin: -1rem -0.4rem;
-    padding: 1rem 0.4rem;
-    border: 0;
-    border-radius: 0.5rem;
-    background: none;
-    color: inherit;
-    cursor: pointer;
-    transition: background-color 0.2s, color 0.2s;
+const ClearBtn = styled.button(({ theme: { palette } }) => ({
+  marginInline: '-0.4rem',
+  marginBlock: '-1rem',
+  paddingInline: '0.4rem',
+  paddingBlock: '1rem',
+  border: 0,
+  borderRadius: '0.5rem',
+  background: 'none',
+  color: 'inherit',
+  cursor: 'pointer',
+  transition: 'background-color 0.2s, color 0.2s',
 
-    &:hover, &:active {
-      background-color: ${palette.bgHover};
-      color: ${palette.text};
-    }
-  `,
-);
+  '&:hover, &:active': {
+    backgroundColor: palette.bgHover,
+    color: palette.text,
+  },
+}));
 
 export const Content: React.FC = () => {
   const {

@@ -20,7 +20,7 @@ export interface Theme {
   };
 }
 
-/** @arg {number} breakpoint In pixels */
+/** @arg breakpoint In pixels */
 const minWidthMq = (breakpoint: number): string =>
   `@media (min-width: ${(breakpoint / 16).toFixed(2)}em)`;
 

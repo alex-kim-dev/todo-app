@@ -7,45 +7,49 @@ import { useGlobalState } from '~/GlobalState';
 import { getTheme } from '~/theme';
 
 const Background = styled.div(
-  ({ theme: { mq, palette } }) => `
-    background: top center / 100% auto no-repeat
-      url('./bg-mobile-${palette.colorTheme}.jpg');
-    padding: 4.8rem 2.4rem;
-    min-height: 100vh;
+  ({
+    theme: {
+      mq,
+      palette: { colorTheme },
+    },
+  }) => ({
+    background: `top center / 100% auto no-repeat url('./bg-mobile-${colorTheme}.jpg')`,
+    paddingInline: '2.4rem',
+    paddingBlock: '4.8rem',
+    minBlockSize: '100vh',
 
-    ${mq.smUp} {
-      background-image: url('./bg-desktop-${palette.colorTheme}.jpg');
-      background-size: auto;
-      padding: 6.4rem 3rem;
-    }
+    [mq.smUp]: {
+      backgroundImage: `url('./bg-desktop-${colorTheme}.jpg')`,
+      paddingBlock: '6.4rem',
+      paddingInline: '3rem',
+    },
 
-    ${mq.mdUp} {
-      padding: 7.8rem 3rem;
-    }
+    [mq.mdUp]: {
+      paddingBlock: '7.8rem',
+    },
 
-    ${mq.xlUp} {
-      background-size: 100%;
-    }
-  `,
+    [mq.xlUp]: {
+      backgroundSize: '100%',
+    },
+  }),
 );
 
-const Container = styled.div`
-  max-width: 54rem;
-  margin: 0 auto;
-`;
+const Container = styled.div({
+  maxInlineSize: '54rem',
+  marginBlock: 0,
+  marginInline: 'auto',
+});
 
-const Hint = styled.p(
-  ({ theme: { palette, mq } }) => `
-    margin-top: 4.3rem;
-    font-size: 1.4rem;
-    text-align: center;
-    color: ${palette.textSecondary};
+const Hint = styled.p(({ theme: { palette, mq } }) => ({
+  marginBlockStart: '4.3rem',
+  fontSize: '1.4rem',
+  textAlign: 'center',
+  color: palette.textSecondary,
 
-    ${mq.mdUp} {
-      margin-top: 5.2rem;
-    }
-  `,
-);
+  [mq.mdUp]: {
+    marginBlockStart: '5.2rem',
+  },
+}));
 
 export const App: React.FC = () => {
   const {
@@ -60,7 +64,7 @@ export const App: React.FC = () => {
           <Header />
           <NewTodoForm />
           <Content />
-          <Hint>Long press on a task to activate drag and drop</Hint>
+          <Hint />
         </Container>
       </Background>
     </ThemeProvider>

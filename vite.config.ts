@@ -6,7 +6,13 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 export default defineConfig(({ mode }) => ({
   base: mode === 'production' ? '/todo-app/' : '/',
 
-  plugins: [react(), tsconfigPaths(), svgr()],
+  plugins: [
+    react({
+      jsxImportSource: '@emotion/react',
+    }),
+    tsconfigPaths(),
+    svgr(),
+  ],
 
   test: {
     globals: true,
